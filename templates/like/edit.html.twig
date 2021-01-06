@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Like{% endblock %}
+
+{% block body %}
+    <h1>Edit Like</h1>
+
+    {{ form(LikeType) }}
+
+    <a href="{{ path('like') }}">back to list</a>
+{% endblock %}

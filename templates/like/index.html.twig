@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LikeController!{% endblock %}
+
+{% block body %}
+    <h1>Like index</h1>
+
+    {{ form(LikeType) }}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>Person</th>
+            <th>Product</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, like in likes %}
+            <tr>
+                <td>{{ key +1 }}</td>
+                <td>{{ like.person }}</td>
+                <td>{{ like.product }}</td>
+                <td>
+                    <a class="btn btn-secondary" href="{{ path('like_edit', {'person': like.person.id, 'product': like.product.id}) }}">Edit</a>
+                    <form method="post" action="{{ path('like_delete', {'person': like.person.id, 'product': like.product.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_like') }}">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('like_new') }}">Create new</a>
+{% endblock %}

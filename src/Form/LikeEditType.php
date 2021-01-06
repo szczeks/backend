@@ -4,11 +4,10 @@ namespace App\Form;
 
 use App\Entity\Person;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PersonType extends AbstractType
+class LikeEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -16,14 +15,8 @@ class PersonType extends AbstractType
             ->add('login')
             ->add('lName')
             ->add('fName')
-            ->add('state', ChoiceType::class, [
-                'choices' => [
-                    'Aktywny' => Person::STATE_AKTYWNY,
-                    'Banned' => Person::STATE_BANNED,
-                    'Usunięty' => Person::STATE_USUNIETY
-                ],
-                'label' => 'State'
-            ])
+            ->add('state')
+            ->add('product')
         ;
     }
 

@@ -9,11 +9,14 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Person
  *
+ * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  * @ORM\Table(name="person")
- * @ORM\Entity
  */
 class Person
 {
+    const STATE_AKTYWNY = 1;
+    const STATE_BANNED = 2;
+    const STATE_USUNIETY = 3;
     /**
      * @var int
      *
@@ -52,7 +55,7 @@ class Person
     private $state;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="Product", inversedBy="person")
      * @ORM\JoinTable(name="person_like_product",
@@ -72,6 +75,11 @@ class Person
     public function __construct()
     {
         $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getFName() . ' ' . $this->getLName();
     }
 
     public function getId(): ?int

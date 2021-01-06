@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Product
  *
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ORM\Table(name="product")
- * @ORM\Entity
  */
 class Product
 {
@@ -45,7 +45,7 @@ class Product
     private $publicDate;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="Person", mappedBy="product")
      */
@@ -57,6 +57,11 @@ class Product
     public function __construct()
     {
         $this->person = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     public function getId(): ?int

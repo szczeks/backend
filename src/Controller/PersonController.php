@@ -98,7 +98,8 @@ class PersonController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$person->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($person);
+            $person->setState(Person::STATE_USUNIETY);
+            $entityManager->persist($person);
             $entityManager->flush();
         }
 
