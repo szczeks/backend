@@ -4,8 +4,24 @@
 
 {% block body %}
     <h1>Like index</h1>
+    {{ form_start(LikeSearchType) }}
 
-    {{ form(LikeType) }}
+    <div class="row">
+        <div class="col-md-5">
+            {{ form_row(LikeSearchType.Person) }}
+        </div>
+        <div class="col-md-5">
+            {{ form_row(LikeSearchType.Product) }}
+        </div>
+        <div class="col-md-2">
+            <label for=""> </label>
+            {{ form_row(LikeSearchType.Submit) }}
+        </div>
+
+    </div>
+    {{ form_end(LikeSearchType) }}
+
+
     <table class="table">
         <thead>
         <tr>
@@ -22,11 +38,11 @@
                 <td>{{ like.person }}</td>
                 <td>{{ like.product }}</td>
                 <td>
-                    <a class="btn btn-secondary" href="{{ path('like_edit', {'person': like.person.id, 'product': like.product.id}) }}">Edit</a>
+                    <a class="btn btn-secondary float-left" href="{{ path('like_edit', {'person': like.person.id, 'product': like.product.id}) }}">Edit</a>
                     <form method="post" action="{{ path('like_delete', {'person': like.person.id, 'product': like.product.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete_like') }}">
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger float-left">Delete</button>
                     </form>
 
                 </td>

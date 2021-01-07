@@ -23,8 +23,8 @@
                 <td>{{ product.info }}</td>
                 <td>{{ product.publicDate ? product.publicDate|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
+                    <a class="btn btn-primary float-left" href="{{ path('product_show', {'id': product.id}) }}">show</a>
+                    <a class="btn btn-secondary float-left" href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

@@ -17,6 +17,11 @@ class Person
     const STATE_AKTYWNY = 1;
     const STATE_BANNED = 2;
     const STATE_USUNIETY = 3;
+    const STATES = [
+        self::STATE_AKTYWNY => 'Aktywny',
+        self::STATE_BANNED => 'Banned',
+        self::STATE_USUNIETY => 'Usunięty'
+    ];
     /**
      * @var int
      *
@@ -157,6 +162,15 @@ class Person
         $this->product->removeElement($product);
 
         return $this;
+    }
+
+    /**
+     * @param $state
+     * @return string
+     */
+    public function resolveStateName($state) : string
+    {
+        return self::STATES[$state];
     }
 
 }

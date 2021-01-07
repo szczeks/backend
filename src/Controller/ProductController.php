@@ -36,6 +36,7 @@ class ProductController extends AbstractController
     public function new(Request $request): Response
     {
         $product = new Product();
+        $product->setPublicDate(new \DateTime());
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 

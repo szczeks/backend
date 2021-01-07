@@ -5,7 +5,22 @@
 {% block body %}
     <h1>Edit Like</h1>
 
-    {{ form(LikeType) }}
+    {{ form_start(LikeType) }}
+        {{ form_row(LikeType.Person, {'attr' : {'readonly' : true}}) }}
+        {{ form_row(LikeType.Product) }}
+        {{ form_row(LikeType.oldProduct) }}
+    {{ form_end(LikeType) }}
+    <input type="hidden" id="like_oldProduct" name="like[oldProduct]" value="{{ product.getId }}">
 
     <a href="{{ path('like') }}">back to list</a>
+
+    <script>
+        let person = {{ person.getId }};
+        let product = {{ product.getId }};
+        document.getElementById("like_Person").value = person;
+        document.getElementById("like_Product").value = product;
+        document.getElementById("like_oldProduct").value = product;
+    </script>
 {% endblock %}
+
+

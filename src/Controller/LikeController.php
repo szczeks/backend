@@ -4,10 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Person;
 use App\Entity\Product;
+use App\Form\LikeSearchType;
 use App\Form\LikeType;
 use App\Repository\LikeRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +24,7 @@ class LikeController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $form = $this->createForm(LikeType::class);
+        $form = $this->createForm(LikeSearchType::class);
         $form->handleRequest($request);
         $people = [];
         $product = null;
@@ -64,7 +63,7 @@ class LikeController extends AbstractController
             }
         }
         return $this->render('like/index.html.twig', [
-            'LikeType' => $form->createView(),
+            'LikeSearchType' => $form->createView(),
             'likes' => $likes
         ]);
     }
@@ -113,14 +112,37 @@ class LikeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $data = $form->getData();
+            /**
+             * @var Person $person
+             * @var Product $product
+             */
+            $person = $data['Person'];
+            $product = $data['Product'];
 
-            return $this->redirectToRoute('person_index');
+            if(is_object($person) && is_object($product))
+            {
+                $em = $this->getDoctrine()->getManager();
+                /**
+                 * @var Product $oldProduct
+                 */
+                $oldProduct = $em->getRepository(Product::class)->find($data['oldProduct']);
+
+                if(is_object($oldProduct))
+                {
+                    $person->removeProduct($oldProduct);
+                    $person->addProduct($product);
+                    $em->persist($person);
+                    $em->flush();
+                }
+            }
+            return $this->redirectToRoute('like');
         }
 
-        return $this->render('person/edit.html.twig', [
+        return $this->render('like/edit.html.twig', [
             'person' => $person,
-            'form' => $form->createView(),
+            'product' => $product,
+            'LikeType' => $form->createView(),
         ]);
     }
 

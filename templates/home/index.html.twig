@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <a href="{{ path('person_index') }}" class="btn btn-block btn-primary">Person</a>
+            <a href="{{ path('product_index') }}" class="btn btn-block btn-primary">Product</a>
+            <a href="{{ path('like') }}" class="btn btn-block btn-primary">Like</a>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+{% endblock %}

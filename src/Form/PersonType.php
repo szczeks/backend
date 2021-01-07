@@ -17,11 +17,7 @@ class PersonType extends AbstractType
             ->add('lName')
             ->add('fName')
             ->add('state', ChoiceType::class, [
-                'choices' => [
-                    'Aktywny' => Person::STATE_AKTYWNY,
-                    'Banned' => Person::STATE_BANNED,
-                    'Usunięty' => Person::STATE_USUNIETY
-                ],
+                'choices' => array_flip(Person::STATES),
                 'label' => 'State'
             ])
         ;

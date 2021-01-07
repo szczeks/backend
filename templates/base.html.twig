@@ -8,7 +8,28 @@
         {% endblock %}
     </head>
     <body>
-        <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="btn btn-lg btn-secondary mr-2" href="{{ path('home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-lg btn-secondary mr-2" href="{{ path('person_index') }}">Person</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-lg btn-secondary mr-2" href="{{ path('product_index') }}">Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-lg btn-secondary mr-2 " href="{{ path('like') }}">Like</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
 
             {% block body %}
             {% endblock %}
